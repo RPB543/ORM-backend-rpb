@@ -10,7 +10,7 @@ router.get('/', (req, res) => {
     // be sure to include its associated Category and Tag data
     include: [Tag, Category]
   })
-    .then(products => res.json(products))
+    .then(product => res.json(product))
     .catch(err => {
       console.log(err);
       res.status(500).json(err);
@@ -27,12 +27,12 @@ router.get('/:id', (req, res) => {
     // be sure to include its associated Category and Tag data
     include: [Category, Tag],
   })
-    .then(products => {
-      if (!products) {
+    .then(product => {
+      if (!product) {
         res.status(404).json({ message: 'No product found with this id' });
         return;
       }
-      res.json(products);
+      res.json(product);
     })
     .catch(err => { res.status(500).json(err) })
 });
@@ -113,6 +113,22 @@ router.put('/:id', (req, res) => {
 
 router.delete('/:id', (req, res) => {
   // delete one product by its `id` value
+  Product.destroy({
+    where: {
+      id: req.params.id
+    }
+  })
+  .then(product => {
+    if (!product) {
+      res.status(404).json({ message: 'No product found with this id' });
+      return;
+    }
+    res.json(product);
+  })
+  .catch(err => {
+    console.log(err);
+    res.status(500).json(err);
+  });
 });
 
 module.exports = router;
