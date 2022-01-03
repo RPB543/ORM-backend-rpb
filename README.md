@@ -17,6 +17,9 @@
 * Dotenv
 * Express
 
+## Instructions
+Clone the repository. Install the necessary packages with "npm install", then run the program in the terminal with "npm start". You will need to use Insomnia to test the routes.
+
 ## Animations
 
 * GET routes to return all categories, products and tags
